@@ -7,7 +7,7 @@ import com.tvojaigra.models.User
 import java.util.*
 
 object JwtConfig {
-    private const val secret = "mysupersecret"
+    private const val secret = "mysupersecret" //do not do this in production
     private const val issuer = "com.tvojaigra"
     private const val validityInMs = 36_000_00 * 24
     private val algo = Algorithm.HMAC512(secret)
