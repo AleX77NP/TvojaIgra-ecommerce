@@ -1,10 +1,8 @@
 package com.tvojaigra.models
 
-import org.bson.codecs.pojo.annotations.BsonId
 import java.util.*
 
 data class Order(
-    @BsonId val id: UUID = UUID.randomUUID(),
     val user: String,
     val products: List<Product>,
     val totalPrice: Number,
