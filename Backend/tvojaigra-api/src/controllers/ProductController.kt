@@ -11,8 +11,7 @@ import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+
 
 fun Routing.products() {
     route("/products") {
@@ -78,7 +77,6 @@ fun Routing.products() {
                     } else {
                         val id = call.parameters["id"]
                         id?.let {
-                            val product = call.receive<Product>()
                             ProductService.deleteProduct(id)
                             call.respond(HttpStatusCode.OK, Message("Product deleted"))
                         }
