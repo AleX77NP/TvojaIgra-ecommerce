@@ -17,25 +17,22 @@ fun Routing.products() {
     route("/products") {
         get("/{id}") {
             val id = call.parameters["id"]
-            if (id != null) {
+            id?.let {
                 val product = ProductService.getProductById(id)
                 if (product != null) {
                     call.respond(HttpStatusCode.OK, product)
                 } else {
                     call.respond(HttpStatusCode.NotFound, Message("Product not found"))
                 }
-            } else {
-                call.respond(HttpStatusCode.BadRequest, Message("Id not found."))
             }
         }
 
         get("/category/{category}") {
             val category = call.parameters["category"]
-            if (category != null) {
-                val products = ProductService.getProductsByCategory(category)
-                call.respond(HttpStatusCode.OK, ProductsRes(products))
-            }  else {
-                call.respond(HttpStatusCode.BadRequest, Message("Category not found"))
+                category?.let {
+                    val products = ProductService.getProductsByCategory(category)
+                    call.respond(HttpStatusCode.OK, ProductsRes(products))
+                }
             }
         }
 
@@ -85,4 +82,3 @@ fun Routing.products() {
             }
         }
     }
-}
