@@ -5,5 +5,6 @@ import io.ktor.auth.*
 data class UserRes(
     val email: String,
     val fullName: String,
-    val address: String
+    val address: String,
+    val role: String
 ) : Principal

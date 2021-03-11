@@ -1,8 +1,11 @@
 package com.tvojaigra.models
 
+import org.bson.codecs.pojo.annotations.BsonId
 import java.util.*
 
 data class Order(
+    @BsonId
+    val _id: String? = null,
     val user: String,
     val products: List<Product>,
     val totalPrice: Number,

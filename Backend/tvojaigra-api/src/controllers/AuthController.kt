@@ -33,8 +33,13 @@ fun Routing.auth() {
 
     post("/auth/register") {
         val user = call.receive<User>()
-        UserService.addUser(user)
-        call.respond(HttpStatusCode.OK, Message("Registration success, You can login now."))
+        val existingUser = UserService.getUserByEmail(user.email)
+        if (existingUser != null) {
+            call.respond(HttpStatusCode.BadRequest, Message("Email is already in use."))
+        } else {
+            UserService.addUser(user)
+            call.respond(HttpStatusCode.OK, Message("Registration success, You can login now."))
+        }
     }
 
     authenticate {

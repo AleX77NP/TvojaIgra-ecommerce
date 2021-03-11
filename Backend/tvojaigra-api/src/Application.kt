@@ -6,12 +6,12 @@ import io.ktor.features.*
 import io.ktor.routing.*
 import io.ktor.http.*
 import io.ktor.auth.*
-import com.fasterxml.jackson.databind.*
 import com.tvojaigra.auth.JwtConfig
 import com.tvojaigra.controllers.auth
+import com.tvojaigra.controllers.products
 import com.tvojaigra.models.api.UserRes
 import io.ktor.auth.jwt.*
-import io.ktor.jackson.*
+import io.ktor.gson.*
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -37,8 +37,9 @@ fun Application.module(testing: Boolean = false) {
                 val email = it.payload.getClaim("email").asString()
                 val fullName = it.payload.getClaim("fullName").asString()
                 val address = it.payload.getClaim("address").asString()
-                if (email != null && fullName != null && address != null) {
-                    UserRes(email, fullName, address)
+                val role = it.payload.getClaim("role").asString()
+                if (email != null && fullName != null && address != null && role != null) {
+                    UserRes(email, fullName, address, role)
                 } else {
                     null
                 }
@@ -47,9 +48,7 @@ fun Application.module(testing: Boolean = false) {
     }
 
     install(ContentNegotiation) {
-        jackson {
-            enable(SerializationFeature.INDENT_OUTPUT)
-        }
+        gson()
     }
 
     routing {
@@ -62,6 +61,8 @@ fun Application.module(testing: Boolean = false) {
         }
 
         this.auth()
+
+        this.products()
     }
 }
 
