@@ -11,7 +11,7 @@ data class User(
     val password: String,
     val fullName: String,
     val address: String,
-    val role: String = "user",
+    val isAdmin: Boolean = false,
 ): Principal {
     override fun getName(): String {
         return fullName

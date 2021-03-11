@@ -21,14 +21,13 @@ object ProductRepository {
     }
 
     fun editProduct(id: String, edited: Product) {
-        productCol?.updateOne(Product::_id eq id, set(Product::title setTo edited.title,
-        Product::category setTo  edited.category, Product::available setTo edited.category,
-        Product::brand setTo  edited.brand, Product::price setTo edited.price, Product::description setTo edited.description,
-        Product::image setTo edited.image, Product::title setTo edited.title))
+        productCol?.updateOne(Product::_id eq id, set(Product::title setTo edited.title, Product::description setTo edited.description,
+        Product::brand setTo edited.brand, Product::image setTo edited.image, Product::category setTo edited.category,
+        Product::available setTo edited.available))
     }
 
     fun deleteProduct(id: String) {
-        productCol?.deleteOne(Product::_id eq id)
+        productCol?.findOneAndDelete(Product::_id eq id)
     }
 
 }

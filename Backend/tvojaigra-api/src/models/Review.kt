@@ -8,7 +8,7 @@ data class Review(
     val _id: String? = null,
     val user: String,
     val product: String,
-    val rating: Number,
+    val rating: Int,
     val text: String,
     val date: Date,
 )

@@ -44,12 +44,44 @@ fun Routing.products() {
             post {
                 val user = call.user
                 user?.let {
-                    if (user.role != "admin") {
+                    if (!user.isAdmin) {
                         call.respond(HttpStatusCode.Unauthorized, Message("Only admin can add products"))
                     } else {
                         val product = call.receive<Product>()
                         ProductService.addProduct(product)
                         call.respond(HttpStatusCode.Created, Message("Product added"))
+                    }
+                }
+            }
+
+            put("/{id}") {
+                val user = call.user
+                user?.let {
+                    if (!user.isAdmin) {
+                        call.respond(HttpStatusCode.Unauthorized, Message("Only admin can edit products"))
+                    } else {
+                        val id = call.parameters["id"]
+                        id?.let {
+                            val product = call.receive<Product>()
+                            ProductService.editProduct(id, product)
+                            call.respond(HttpStatusCode.OK, Message("Product edited"))
+                        }
+                    }
+                }
+            }
+
+            delete("/{id}") {
+                val user = call.user
+                user?.let {
+                    if (!user.isAdmin) {
+                        call.respond(HttpStatusCode.Unauthorized, Message("Only admin can delete products"))
+                    } else {
+                        val id = call.parameters["id"]
+                        id?.let {
+                            val product = call.receive<Product>()
+                            ProductService.deleteProduct(id)
+                            call.respond(HttpStatusCode.OK, Message("Product deleted"))
+                        }
                     }
                 }
             }

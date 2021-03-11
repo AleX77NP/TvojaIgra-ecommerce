@@ -23,7 +23,7 @@ object JwtConfig {
         .withClaim("email", user.email)
         .withClaim("fullName", user.fullName)
         .withClaim("address", user.address)
-        .withClaim("role", user.role)
+        .withClaim("isAdmin", user.isAdmin)
         .withExpiresAt(getExp())
         .sign(algo)
 

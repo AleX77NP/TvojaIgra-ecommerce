@@ -6,5 +6,5 @@ data class UserRes(
     val email: String,
     val fullName: String,
     val address: String,
-    val role: String
+    val isAdmin: Boolean
 ) : Principal

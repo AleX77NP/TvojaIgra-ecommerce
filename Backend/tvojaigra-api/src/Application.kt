@@ -37,9 +37,9 @@ fun Application.module(testing: Boolean = false) {
                 val email = it.payload.getClaim("email").asString()
                 val fullName = it.payload.getClaim("fullName").asString()
                 val address = it.payload.getClaim("address").asString()
-                val role = it.payload.getClaim("role").asString()
-                if (email != null && fullName != null && address != null && role != null) {
-                    UserRes(email, fullName, address, role)
+                val isAdmin = it.payload.getClaim("isAdmin").asBoolean()
+                if (email != null && fullName != null && address != null && isAdmin != null) {
+                    UserRes(email, fullName, address, isAdmin)
                 } else {
                     null
                 }
