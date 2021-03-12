@@ -8,6 +8,7 @@ import io.ktor.http.*
 import io.ktor.auth.*
 import com.tvojaigra.auth.JwtConfig
 import com.tvojaigra.controllers.auth
+import com.tvojaigra.controllers.orders
 import com.tvojaigra.controllers.products
 import com.tvojaigra.controllers.reviews
 import com.tvojaigra.models.api.UserRes
@@ -54,11 +55,7 @@ fun Application.module(testing: Boolean = false) {
 
     routing {
         get("/") {
-            call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
-        }
-
-        get("/json/jackson") {
-            call.respond(mapOf("hello" to "world"))
+            call.respondText("TVOJA IGRA!", contentType = ContentType.Text.Plain)
         }
 
         this.auth()
@@ -66,6 +63,8 @@ fun Application.module(testing: Boolean = false) {
         this.products()
 
         this.reviews()
+
+        this.orders()
     }
 }
 
