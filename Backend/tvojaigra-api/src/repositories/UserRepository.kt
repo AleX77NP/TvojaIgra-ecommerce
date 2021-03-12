@@ -8,7 +8,7 @@ import org.litote.kmongo.getCollection
 
 object UserRepository {
 
-    val userCol = MongoDb.getDatabase()?.getCollection<User>()
+    private val userCol = MongoDb.getDatabase()?.getCollection<User>()
 
     fun addUser(user: User) {
         userCol?.insertOne(user)

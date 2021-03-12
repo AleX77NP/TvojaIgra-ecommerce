@@ -6,7 +6,7 @@ import org.litote.kmongo.*
 
 object ProductRepository {
 
-    val productCol = MongoDb.getDatabase()?.getCollection<Product>()
+    private val productCol = MongoDb.getDatabase()?.getCollection<Product>()
 
     fun addProduct(product: Product) {
         productCol?.insertOne(product)

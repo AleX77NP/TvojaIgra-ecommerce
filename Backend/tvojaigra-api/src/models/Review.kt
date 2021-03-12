@@ -1,7 +1,6 @@
 package com.tvojaigra.models
 
 import org.bson.codecs.pojo.annotations.BsonId
-import java.util.*
 
 data class Review(
     @BsonId
@@ -10,5 +9,5 @@ data class Review(
     val product: String,
     val rating: Int,
     val text: String,
-    val date: Date,
+    val date: String,
 )

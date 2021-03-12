@@ -9,6 +9,7 @@ import io.ktor.auth.*
 import com.tvojaigra.auth.JwtConfig
 import com.tvojaigra.controllers.auth
 import com.tvojaigra.controllers.products
+import com.tvojaigra.controllers.reviews
 import com.tvojaigra.models.api.UserRes
 import io.ktor.auth.jwt.*
 import io.ktor.gson.*
@@ -63,6 +64,8 @@ fun Application.module(testing: Boolean = false) {
         this.auth()
 
         this.products()
+
+        this.reviews()
     }
 }
 
