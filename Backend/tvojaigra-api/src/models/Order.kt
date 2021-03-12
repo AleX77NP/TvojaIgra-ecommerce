@@ -1,7 +1,6 @@
 package com.tvojaigra.models
 
 import org.bson.codecs.pojo.annotations.BsonId
-import java.util.*
 
 data class Order(
     @BsonId
@@ -17,7 +16,7 @@ data class Order(
     val billingAddress: String,
     val shippingAddress: String,
     val isPaid: Boolean,
-    val paidDate: Date?,
+    val paidDate: String?,
     val isDelivered: Boolean,
-    val deliverDate: Date?,
+    val deliverDate: String?,
 )
