@@ -14,13 +14,14 @@ import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import org.mindrot.jbcrypt.BCrypt
 
 fun Routing.auth() {
     post("/auth/login") {
         val info = call.receive<LoginInfo>()
         val user: User? = UserService.getUserByEmail(info.email)
         if (user != null) {
-            if(info.password == user.password) {
+            if(BCrypt.checkpw(info.password, user.password)) {
                 val token = JwtConfig.generateToken(user)
                 call.respond(HttpStatusCode.OK, TokenRes(token))
             } else {
@@ -37,6 +38,7 @@ fun Routing.auth() {
         if (existingUser != null) {
             call.respond(HttpStatusCode.BadRequest, Message("Email is already in use."))
         } else {
+            user.password = UserService.hashPassword(user.password).toString()
             UserService.addUser(user)
             call.respond(HttpStatusCode.OK, Message("Registration success, You can login now."))
         }

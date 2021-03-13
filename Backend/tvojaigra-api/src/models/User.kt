@@ -8,7 +8,7 @@ data class User(
     @BsonId
     val _id: String? = null,
     val email: String,
-    val password: String,
+    var password: String,
     val fullName: String,
     val address: String,
     val isAdmin: Boolean = false,
