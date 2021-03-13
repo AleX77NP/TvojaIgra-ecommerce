@@ -1,5 +1,6 @@
 package com.tvojaigra.repositories
 
+import com.mongodb.client.result.InsertOneResult
 import com.tvojaigra.db.MongoDb
 import com.tvojaigra.models.Order
 import org.litote.kmongo.*
@@ -9,8 +10,8 @@ object OrderRepository {
 
     private val orderCol = MongoDb.getDatabase()?.getCollection<Order>()
 
-    fun addOrder(order: Order) {
-        orderCol?.insertOne(order)
+    fun addOrder(order: Order): InsertOneResult? {
+        return orderCol?.insertOne(order)
     }
 
     fun cancelOrder(id: String) {
@@ -31,7 +32,7 @@ object OrderRepository {
 
     fun updateOrderPaid(id: String) {
         val dateNow = Calendar.getInstance().time.toString()
-        orderCol?.updateOne(Order::_id eq id, set(Order::isPaid setTo true, Order::paidDate setTo dateNow))
+        orderCol?.updateOne(Order::_id eq id, set(Order::isPaid setTo true, Order::paidDate setTo dateNow, Order::status setTo "paid"))
     }
 
     fun updateOrderDelivered(id: String) {

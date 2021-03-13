@@ -1,12 +1,13 @@
 package com.tvojaigra.services
 
+import com.mongodb.client.result.InsertOneResult
 import com.tvojaigra.models.Order
 import com.tvojaigra.repositories.OrderRepository
 
 object OrderService {
 
-    fun addOrder(order: Order) {
-        OrderRepository.addOrder(order)
+    fun addOrder(order: Order): InsertOneResult? {
+        return OrderRepository.addOrder(order)
     }
 
     fun cancelOrder(id: String) {

@@ -4,7 +4,7 @@ import org.bson.codecs.pojo.annotations.BsonId
 
 data class Order(
     @BsonId
-    val _id: String? = null,
+    val _id: String?,
     val user: String,
     val products: List<Product>,
     val totalPrice: Float,
